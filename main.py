@@ -3,16 +3,23 @@ enter_todo_prompt = "Enter a new todo:"
 edit_todo_prompt = "Enter the number of the todo you would like to edit:"
 complete_todo_prompt = "Enter the number of the todo you would like to complete:"
 
-todo_list = []
-
 while True:
     user_action = input(user_action_prompt)
     user_action = user_action.strip()
 
     match user_action:
         case "add":
-            todo_item = input(enter_todo_prompt)
+            todo_item = input(enter_todo_prompt) + '\n'
+            
+            file = open("todos.txt", 'r')
+            todo_list = file.readlines()
+            file.close()
+            
             todo_list.append(todo_item)
+            
+            file = open("todos.txt", 'w')
+            file.writelines(todo_list)
+            file.close()
         case "show":
             for index, item in enumerate(todo_list):
                 row = f"{index + 1}. {item}"
