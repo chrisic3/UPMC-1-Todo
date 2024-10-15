@@ -1,6 +1,7 @@
-user_action_prompt = "Type add, show, edit, or exit:"
+user_action_prompt = "Type add, show, edit, complete or exit:"
 enter_todo_prompt = "Enter a new todo:"
-todo_number_prompt = "Enter the number of the todo you would like to edit:"
+edit_todo_prompt = "Enter the number of the todo you would like to edit:"
+complete_todo_prompt = "Enter the number of the todo you would like to complete:"
 
 todo_list = []
 
@@ -18,12 +19,18 @@ while True:
                 print(row)
         case "edit":
             # Cast str input to int
-            todo_number = int(input(todo_number_prompt))
+            edit_todo_number = int(input(edit_todo_prompt))
             # Subtract 1 because the list starts at 0 and the user
             #   doesn't know that
-            todo_number = todo_number - 1
+            edit_todo_number = edit_todo_number - 1
             new_todo_item = input(enter_todo_prompt)
-            todo_list[todo_number] = new_todo_item
+            todo_list[edit_todo_number] = new_todo_item
+        case "complete":
+            # Cast str input to int
+            complete_todo_number = int(input(complete_todo_prompt))
+            # Subtract 1 because the list starts at 0 and the user
+            #   doesn't know that
+            todo_list.pop(complete_todo_number - 1)
         case "exit":
             break
 
