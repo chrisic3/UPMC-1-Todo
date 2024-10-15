@@ -4,7 +4,8 @@ enter_todo_prompt = "Enter a todo:"
 todos = []
 
 while True:
-    user_action = input(user_action_prompt).strip()
+    user_action = input(user_action_prompt)
+    user_action = user_action.strip()
 
     match user_action:
         case "add":
