@@ -13,10 +13,9 @@ while True:
             todo_item = input(enter_todo_prompt)
             todo_list.append(todo_item)
         case "show":
-            for item in todo_list:
-                print(item)
-        # TODO: Add case for "edit"
-        #   Use numbers for indexing
+            for index, item in enumerate(todo_list):
+                row = f"{index + 1}. {item}"
+                print(row)
         case "edit":
             # Cast str input to int
             todo_number = int(input(todo_number_prompt))
