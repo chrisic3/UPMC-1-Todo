@@ -1,7 +1,7 @@
-user_action_prompt = "Type add, show, edit, complete or exit:"
-enter_todo_prompt = "Enter a new todo:"
-edit_todo_prompt = "Enter the number of the todo you would like to edit:"
-complete_todo_prompt = "Enter the number of the todo you would like to complete:"
+user_action_prompt = "Type add, show, edit, complete or exit: "
+enter_todo_prompt = "Enter a new todo: "
+edit_todo_prompt = "Enter the number of the todo you would like to edit: "
+complete_todo_prompt = "Enter the number of the todo you would like to complete: "
 
 while True:
     user_action = input(user_action_prompt)
@@ -25,6 +25,9 @@ while True:
             todo_list = file.readlines()
             file.close()
             
+            # List comprehension
+            todo_list = [item.strip('\n') for item in todo_list]
+
             for index, item in enumerate(todo_list):
                 row = f"{index + 1}. {item}"
                 print(row)
