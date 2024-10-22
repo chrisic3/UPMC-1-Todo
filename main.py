@@ -37,17 +37,34 @@ while True:
         case "edit":
             # Cast str input to int
             edit_todo_number = int(input(edit_todo_prompt))
+
             # Subtract 1 because the list starts at 0 and the user
             #   doesn't know that
             edit_todo_number = edit_todo_number - 1
+
+            with open("todos.txt", 'r') as file:
+                todo_list = file.readlines()
+            
             new_todo_item = input(enter_todo_prompt)
-            todo_list[edit_todo_number] = new_todo_item
+            todo_list[edit_todo_number] = new_todo_item + '\n'
+
+            with open("todos.txt", 'w') as file:
+                file.writelines(todo_list)
         case "complete":
             # Cast str input to int
             complete_todo_number = int(input(complete_todo_prompt))
+
+            with open("todos.txt", 'r') as file:
+                todo_list = file.readlines()
+
             # Subtract 1 because the list starts at 0 and the user
-            #   doesn't know that
-            todo_list.pop(complete_todo_number - 1)
+            #   doesn't know that. Also store the item to print out later.
+            #   Also remove the new line character.
+            removed_todo = todo_list.pop(complete_todo_number - 1).strip('\n')
+            print(f'The item "{removed_todo}" was removed from the list.')
+
+            with open("todos.txt", 'w') as file:
+                file.writelines(todo_list)
         case "exit":
             break
 
