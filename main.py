@@ -10,25 +10,28 @@ while True:
     match user_action:
         case "add":
             todo_item = input(enter_todo_prompt) + '\n'
-            
-            file = open("todos.txt", 'r')
-            todo_list = file.readlines()
-            file.close()
+
+            # file = open("todos.txt", 'r')
+            # todo_list = file.readlines()
+            # file.close()
+
+            # Changed to with context manager
+            with open("todos.txt", 'r') as file:
+                todo_list = file.readlines()
             
             todo_list.append(todo_item)
-            
-            file = open("todos.txt", 'w')
-            file.writelines(todo_list)
-            file.close()
+
+            with open("todos.txt", 'w') as file:
+                file.writelines(todo_list)
         case "show":
-            file = open("todos.txt", 'r')
-            todo_list = file.readlines()
-            file.close()
+            with open("todos.txt", 'r') as file:
+                todo_list = file.readlines()
             
             # List comprehension
-            todo_list = [item.strip('\n') for item in todo_list]
+            # todo_list = [item.strip('\n') for item in todo_list]
 
             for index, item in enumerate(todo_list):
+                item = item.strip('\n')
                 row = f"{index + 1}. {item}"
                 print(row)
         case "edit":
