@@ -1,11 +1,11 @@
 # Function to open a file and read the lines to a list
-def get_todos():
+def get_todos(filepath):
     # file = open("todos.txt", 'r')
     # todo_list = file.readlines()
     # file.close()
 
     # Changed to with context manager
-    with open("todos.txt", 'r') as file_local:
+    with open(filepath, 'r') as file_local:
         todo_list_local = file_local.readlines()
 
     return todo_list_local
@@ -26,14 +26,14 @@ while True:
         #   "add "
         todo_item = user_action[4:]
 
-        todo_list = get_todos()
+        todo_list = get_todos("todos.txt")
         
         todo_list.append(todo_item + '\n')
 
         with open("todos.txt", 'w') as file:
             file.writelines(todo_list)
     elif user_action.startswith("show"):
-        todo_list = get_todos()
+        todo_list = get_todos("todos.txt")
         
         # List comprehension
         # todo_list = [item.strip('\n') for item in todo_list]
@@ -52,7 +52,7 @@ while True:
             #   doesn't know that
             edit_todo_number = edit_todo_number - 1
 
-            todo_list = get_todos()
+            todo_list = get_todos("todos.txt")
             
             new_todo_item = input(enter_todo_prompt)
             todo_list[edit_todo_number] = new_todo_item + '\n'
@@ -68,7 +68,7 @@ while True:
             # Cast str input to int
             complete_todo_number = int(user_action[9:])
 
-            todo_list = get_todos()
+            todo_list = get_todos("todos.txt")
 
             # Subtract 1 because the list starts at 0 and the user
             #   doesn't know that. Also store the item to print out later.
