@@ -11,6 +11,12 @@ def get_todos(filepath):
     return todo_list_local
 
 
+# Function to open a file and read the lines to a list
+def write_todos(filepath, todos_arg):
+    with open(filepath, 'w') as file_local:
+        file_local.writelines(todos_arg)
+
+
 user_action_prompt = "Type add, show, edit, complete, or exit: "
 enter_todo_prompt = "Enter a new todo: "
 edit_todo_prompt = "Enter the number of the todo you would like to edit: "
@@ -30,8 +36,7 @@ while True:
         
         todo_list.append(todo_item + '\n')
 
-        with open("todos.txt", 'w') as file:
-            file.writelines(todo_list)
+        write_todos("todos.txt", todo_list)
     elif user_action.startswith("show"):
         todo_list = get_todos("todos.txt")
         
@@ -57,8 +62,7 @@ while True:
             new_todo_item = input(enter_todo_prompt)
             todo_list[edit_todo_number] = new_todo_item + '\n'
 
-            with open("todos.txt", 'w') as file:
-                file.writelines(todo_list)
+            write_todos("todos.txt", todo_list)
         except ValueError:
             print("Invalid command")
             continue
@@ -74,10 +78,10 @@ while True:
             #   doesn't know that. Also store the item to print out later.
             #   Also remove the new line character.
             removed_todo = todo_list.pop(complete_todo_number - 1).strip('\n')
-            print(f'The item "{removed_todo}" was removed from the list.')
 
-            with open("todos.txt", 'w') as file:
-                file.writelines(todo_list)
+            write_todos("todos.txt", todo_list)
+
+            print(f'The item "{removed_todo}" was removed from the list.')
         except IndexError:
             print("There is not item at that number.")
     elif user_action.startswith("exit"):
