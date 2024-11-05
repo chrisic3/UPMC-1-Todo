@@ -1,23 +1,4 @@
-# Function to open a file and read the lines to a list
-def get_todos(filepath="todos.txt"):
-    """ Read a list of items from a text file. """
-    # file = open("todos.txt", 'r')
-    # todo_list = file.readlines()
-    # file.close()
-
-    # Changed to with context manager
-    with open(filepath, 'r') as file_local:
-        todo_list_local = file_local.readlines()
-
-    return todo_list_local
-
-
-# Function to open a file and read the lines to a list
-def write_todos(todos_arg, filepath="todos.txt"):
-    """ Write a list of items to a text file. """
-    with open(filepath, 'w') as file_local:
-        file_local.writelines(todos_arg)
-
+import functions
 
 user_action_prompt = "Type add, show, edit, complete, or exit: "
 enter_todo_prompt = "Enter a new todo: "
@@ -34,13 +15,13 @@ while True:
         #   "add "
         todo_item = user_action[4:]
 
-        todo_list = get_todos()
+        todo_list = functions.get_todos()
         
         todo_list.append(todo_item + '\n')
 
-        write_todos(todo_list)
+        functions.write_todos(todo_list)
     elif user_action.startswith("show"):
-        todo_list = get_todos()
+        todo_list = functions.get_todos()
         
         # List comprehension
         # todo_list = [item.strip('\n') for item in todo_list]
@@ -59,12 +40,12 @@ while True:
             #   doesn't know that
             edit_todo_number = edit_todo_number - 1
 
-            todo_list = get_todos()
+            todo_list = functions.get_todos()
             
             new_todo_item = input(enter_todo_prompt)
             todo_list[edit_todo_number] = new_todo_item + '\n'
 
-            write_todos(todo_list)
+            functions.write_todos(todo_list)
         except ValueError:
             print("Invalid command")
             continue
@@ -74,14 +55,14 @@ while True:
             # Cast str input to int
             complete_todo_number = int(user_action[9:])
 
-            todo_list = get_todos()
+            todo_list = functions.get_todos()
 
             # Subtract 1 because the list starts at 0 and the user
             #   doesn't know that. Also store the item to print out later.
             #   Also remove the new line character.
             removed_todo = todo_list.pop(complete_todo_number - 1).strip('\n')
 
-            write_todos(todo_list)
+            functions.write_todos(todo_list)
 
             print(f'The item "{removed_todo}" was removed from the list.')
         except IndexError:
