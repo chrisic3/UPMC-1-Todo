@@ -1,9 +1,13 @@
 import functions
+import time
 
 user_action_prompt = "Type add, show, edit, complete, or exit: "
 enter_todo_prompt = "Enter a new todo: "
 edit_todo_prompt = "Enter the number of the todo you would like to edit: "
 complete_todo_prompt = "Enter the number of the todo you would like to complete: "
+
+now = time.strftime("%b %d, %Y %H:%M:%S")
+print("It is", now)
 
 while True:
     user_action = input(user_action_prompt)
